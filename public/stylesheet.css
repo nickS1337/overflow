@@ -1,0 +1,846 @@
+/* Global Styles */
+
+	@font-face {
+		font-family: Roboto;
+		src: url("Roboto/Roboto-Light.ttf");
+	}
+
+	html {
+		font-family: Roboto;
+		background-color: #fff;
+	}
+
+	input[type="text"]:focus, textarea:focus, input[type="password"]:focus {
+		border: solid 2px #707070;
+		outline-width: 0;
+		outline: none;
+	}
+
+	input[type="text"], input[type="number"], input[type="password"], textarea {
+		padding: 10px;
+		border: solid 2px gainsboro;
+		font-family: Roboto;
+		outline-width: 0;
+		outline: none;
+		resize: none;
+		-webkit-transition: box-shadow 0.3s, border 0.3s;
+		-moz-transition: box-shadow 0.3s, border 0.3s;
+		-o-transition: box-shadow 0.3s, border 0.3s;
+		transition: box-shadow 0.3s, border 0.3s;
+	}
+
+	select:active {
+	    border: 0.15em solid gainsboro;
+		font-family: Roboto;
+		outline: none
+	}
+
+	input[type="checkbox"], select {
+		border: 0.15em solid gainsboro;
+		outline: none;
+		cursor: default;
+	}
+
+	select:hover {
+		appearance: none;
+		border: 0.15em solid #707070;
+	}
+
+/* _____________ */
+/* Keyframes Styles */
+		@keyframes fading {
+			0%   { background: #7B68EE; }
+			33%  { background: #8B4513; }
+			66%  { background: #2E8B57; }
+			100% { background: #7B68EE; }
+		}
+		@-webkit-keyframes fading {
+			0%   { background: #7B68EE; }
+			33%  { background: #8B4513; }
+			66%  { background: #2E8B57; }
+			100% { background: #7B68EE; }
+		}
+
+		@keyframes fading2 {
+			0%   { border: 1 em solid #ba5050; }
+			33%  { border: 1 em solid #f6d300; }
+			66%  { border: 1 em solid #1e8d94; }
+			100% { border: 1 em solid #894700; }
+		}
+		@-webkit-keyframes fading2 {
+			0%   { background: #ba5050; }
+			33%  { background: #f6d300; }
+			66%  { background: #1e8d94; }
+			100% { background: #894700; }
+		}
+/* _____________ */
+/* Classes 		 */
+
+	.cover {
+		background-position: center;
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+
+	.animation {
+			-webkit-transition: all .5s ease;
+			-moz-transition: all .5s ease;
+			-o-transition: all .5s ease;
+			-ms-transition: all .5s ease;
+			transition: all .5s ease;
+	}
+
+	.calendar_button {
+		position: relative;
+		height: auto;
+		width: 80%;
+		left: 10%;
+		border-bottom: 0.2em solid #fff;
+		border-top: 0.2em solid #fff;
+		top: 4%; border-radius: 0.1em;
+		color: #fff;
+		word-wrap: break-word;
+		cursor: pointer;
+		margin-top: 2%;
+		margin-bottom: 2%;
+	}
+
+	.calendar_button:hover {
+		border-top: 0.2em solid #3fb7fc;
+		border-bottom: 0.2em solid #3fb7fc;
+	}
+
+	.buttn {
+		position: absolute;
+		width: 100%;
+		height: 7%;
+		background-color: #33291b;
+		color: #fff;
+		cursor: pointer;
+		overflow: hidden;
+	}
+
+	.buttn:hover .buttn_hover {
+		left: 72%;
+	}
+
+	.day {
+		position: absolute;
+		top: 75%;
+		height: 25%;
+		margin-left: 2%;
+		width: 14.285714285714286%;
+		font-size: 80%;
+		color: #fff;
+		line-height: 40%;
+	}
+
+	.day_special {
+		position: absolute;
+		height: height: 100%;
+		width: 14.285714285714286%;
+		text-align: center;
+		font-size: 80%;
+		color: #fff;
+		cursor: default;
+	}
+
+	.day_special h3 {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		top: 30%;
+	}
+
+	.tile {
+		width: 14.285714285714286%;
+		border-bottom: 0.15em solid #fff;
+		font-size: 80%;
+	}
+
+	.tile_child {
+		cursor: pointer;
+		/*margin-top: 2%;*/
+		margin-left: 3%;
+		padding-left: 4%;
+		padding-top: 3%;
+		padding-bottom: 3%;
+		padding-right: 2%;
+		margin-bottom: 2%;
+		width: 85%;
+		min-height: 20%;
+		border-radius: 0.15em;
+		font-size: 80%;
+		background-color: #dbcbcb;
+	}
+
+	.tile1 {
+		height: 100%;
+		width: 14.285714285714286%;
+		border-bottom: 2px solid #fff;
+		float: left;
+	}
+
+	.logout_button {
+		position: absolute;
+		cursor: pointer;
+		width: 25%;
+		height: 32%;
+		border-radius: 1%;
+		left: 22%;
+		top: 56%;
+	}
+
+	.move_down {
+		overflow: hidden;
+	}
+
+	.move_down_insides {
+		top: 0%;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background-size: cover;
+		background-position: center;
+	}
+
+	.move_down_outsides {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		top: -100%;
+	}
+
+	.button_class_select {
+		position: absolute;
+		height: 100%;
+		width: 15%;
+		background-color: #d3d3d3;
+		cursor: pointer;
+		overflow: hidden;
+		border-top: 0.1em solid #718193;
+	}
+
+	.button_class_select_hover {
+		position: absolute;
+		height: 100%;
+		top: 88%;
+		width: 100%;
+		background-color: green;
+	}
+
+	.button_class_select:hover .button_class_select_hover {
+		top: 7%;
+	}
+
+	.button_class_select:hover .button_class_select h4 {
+		color: #fff;
+	}
+
+	.move_down:hover .move_down_insides {
+		top: 100%;
+	}
+
+	.move_down:hover .move_down_outsides {
+		top: 0%;
+	}
+
+	.buttn_hover {
+		position: absolute;
+		height: 100%;
+		width: 30%;
+		left: 93%;
+		background-color: #bc9c9c;
+	}
+
+	.progress_bar {
+		position: relative;
+		height: 100%;
+		width: 14.2857143%;
+		float: left;
+		text-align: center;
+		vertical-align: center;
+		color: #fff;
+		padding-top: 1%;
+		overflow: none;
+	}
+
+	.annoucement_box {
+		position: relative;
+		float: left;
+		height: auto;
+		width: 42%;
+		margin-right: 2%;
+		background-color: #000;
+		border-radius: 0.1em;
+		padding-top: 3%;
+		padding-bottom: 3%;
+		padding-right: 3%;
+		padding-left: 3%;
+		color: #fff;
+	}
+
+	.annoucement_box {
+		font-size: 85%;
+	}
+
+/* _________ */
+/* ID Styles */
+
+	#submit_button {
+		background-color: #FFBF7C;
+		color: #fff;
+		border-radius: 3px;
+		border: 0.1em solid #fcb471;
+		left: 50%;
+		transform: translateX(-50%);
+		top: 93%;
+	}
+
+	#assignment_ui {
+		position: absolute;
+		left: 18.5%;
+		width: 40%;
+		height: 30%;
+		top: 3%;
+		background-color: #ef9072;
+		border: 0.1em solid #ce6c4e;
+	}
+
+	#assignment_ui_content {
+		position: absolute;
+		margin-top: 10%;
+		height: auto;
+		width: 100%;
+		background-color: #6bb28a;
+		border-top: 0.1em solid #3a7553;
+		border-bottom: 0.1em solid #3a7553;
+	}
+
+	#assignment_ui_content p {
+		color: #fff;
+		width: 96%;
+		left: 2%;
+		height: 40%;
+		margin-left: 3%;
+	}
+
+	#chopping_block {
+		position: absolute;
+		width: 30.75%;
+		height: 20%;
+		left: 47.75%;
+		background-color: #f2d19d;
+		border: 0.1em solid #e8b56a;
+		padding-bottom: 3%;
+	}
+
+	#announcements {
+		position: absolute;
+		height: 20%;
+		width: 60%;
+		background-color: #F08080;
+		border: 0.1em solid #fff;
+		border-bottom: none;
+		top: 3%;
+		color: #fff;
+		left: 18.5%;
+		z-index: -999;
+		overflow: hidden;
+	}
+
+	#calendar_table td {
+		padding: 0.5%;
+		vertical-align: text-top;
+		border: 0.17em solid #fff;
+		border-top: none;
+	}
+
+	#calendar_table tr {
+		position: relative;
+		height: 50%;
+		width: 100%;
+	}
+
+	#calendar_table {
+		border-collapse: collapse;
+		position: absolute;
+		min-height: 35%;
+		width: 60.25%;
+		left: 18.5%;
+		top: 23%;
+		background-color: #d8a0a0;
+		z-index: -999;
+		border: 0.1em solid #af4444;
+		border-top: none;
+	}
+
+	#class_calendar_days {
+		position: absolute;
+		width: 60%;
+		height: 6%;
+		background-color: #F08080;
+		border: 0.1em solid #af4444;
+		border-bottom: none;
+		color: #fff;
+		left: 18.5%;
+		top: 28.75%;
+		display: none;
+	}
+
+	#class_name, #class_name_teacher {
+		position: absolute;
+		height: 10%;
+		width: 60%;
+		left: 18.5%;
+		top: 10%;
+		background-color: #B0C4DE;
+		border: 0.1em solid #718193;
+		display: none;
+	}
+
+	#class_name h2, #class_name_teacher h2 {
+		position: absolute;
+		color: #fff;
+		left: 2.5%;
+		top: -2%;
+	}
+
+	#buttons_class {
+		position: absolute;
+		z-index: 956;
+		width: 60%;
+		height: 7%;
+		left: 18.5%;
+		top: 21%;
+		display: none;
+	}
+
+	#calendar_teacher {
+		position: absolute;
+		height: 58%;
+		width: 60%;
+		left: 18.5%;
+		top: 23%;
+		background-color: #d8a0a0;
+		border: 0.1em solid #af4444;
+		border-top: none;
+	}
+
+	#dashboard {
+		background-color: #fff;
+		/*background-color: #e2f0ff;*/
+	}
+
+	#submit_button_new {
+		background-color: #FFBF7C;
+		color: #fff;
+		border-radius: 3px;
+		left: 50%;
+		transform: translateX(-50%);
+		top: 86%;
+		opacity: 1;
+	}
+
+	#submit_button:hover, #submit_button_new:hover {
+		background-color: #34A853;
+		border: 0.1em solid #278e43;
+	}
+
+	#box {
+		animation: fading 10s infinite;
+		-webkit-animationanimation: fading 10s inifinite;
+	}
+
+	#classes_spotlightX {
+		overflow-y: auto;
+		overflow-x: hidden;
+		position: relative;
+		height: 70%;
+		top: 27.25%;
+		width: 65%;
+		background-color: #e2e2e2;
+		z-index: 980;
+		left: -54.5%;
+	}
+
+	#average_grade {
+		position: absolute;
+		width: 18%;
+		height: 8%;
+		left: 79.13616398243045%;
+		top: 83%;
+		background-color: #2E8B57;
+		border: 0.1em solid #20633d;
+		transform: preserve-3d;
+		perspective: 30rem;
+		cursor: default;
+	}
+
+	#average_grade h1 {
+		position: absolute;
+		font-size: 110%;
+		color: #fff;
+		left: 3%;
+		top: 5%;
+	}
+
+	#average_grade_hidden {
+		position: absolute;
+		height: 100%;
+		width: 20%;
+		background-color: #4ab4c9;
+		border-left: 0.1em solid #1f7382;
+		border-right: 0.1em solid #1f7382;
+		left: 74%;
+		transform-style: preserve-3d;
+		backface-visibility: hidden;
+	}
+
+	#average_grade_show {
+		position: absolute;
+		height: 100%;
+		width: 20%;
+		background-color: #F5DEB3;
+		border-left: 0.1em solid #a8987c;
+		border-right: 0.1em solid #a8987c;
+		left: 74%;
+		transform-style: preserve-3d;
+		transform: rotateY(180deg);
+		backface-visibility: hidden;
+	}
+
+	#average_grade:hover #average_grade_hidden {
+		transform: rotateY(360deg);
+	}
+
+	#average_grade:hover #average_grade_show {
+		transform: rotateY(0deg);
+	}
+
+	#submit_button_chat {
+		background-color: #b22525;
+		color: #fff;
+	}
+
+	#submit_button_chat:active {
+		background-color: #fff;
+		color: #b22525;
+	}
+
+	#submit_search {
+		position: absolute;
+		height: 6%;
+		width: 8%;
+		top: 34%;
+		left: 61%;
+		background-color: #98FB98;
+		border: 0.1em solid #7bc67b;
+		cursor: pointer;
+		display: none;
+	}
+
+	#submit_search h4 {
+		color: #fff;
+		position: absolute;
+		top: -30%;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+
+	#submit_search:hover {
+		background-color: #F5FFFA;
+		border: 0.1em solid #dbd9d9;
+	}
+
+	#submit_search:hover h4 {
+		color: #98FB98;
+	}
+
+	#searching_text {
+		position: absolute;
+		height: 7%;
+		width: 55%;
+		background-color: #BC8F8F;
+		border: 0.1em solid #8e6c6c;
+		left: 19.5%;
+		top: 43%;
+		display: none;
+	}
+
+	#searching_text h2 {
+		color: #fff;
+		position: absolute;
+		left: 1%;
+		top: -30%;
+	}
+
+	#private_chatsUI {
+		position: absolute;
+		width: 87%;
+		height: 100%;
+		background-color: #000;
+		left: 17%;
+		top: 0%;
+		z-index: 978;
+		display: none;
+		background-color: #46596b;
+	}
+
+/* _______________________________ */
+/* Teacher Dashboard Style IDs 	   */
+
+	#teacher_dashboard {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background-color: #fff;
+		top: -100%;
+		left: 0%;
+		overflow-y: auto;
+	}
+
+	#recent_classes {
+		position: absolute;
+		left: 18.5%;
+		height: 25%;
+		width: 25%;
+		top: 21.65%;
+		background-color: #72410c;
+		border: 0.1em solid #442506;
+	}
+
+	#assessment_analytics {
+		position: absolute;
+		height: 7%;
+		top: 14.5%;
+		width: 10%;
+		left: 18.5%;
+		background-color: #1e8d94;
+		border: 0.1em solid #14585b;
+		display: none;
+	}
+
+	#assessment_analytics:hover {
+		background-color: #14585b;
+	}
+
+	#schedule_assessment {
+		position: absolute;
+		left: 28.70%;
+		height: 7%;
+		width: 10%;
+		top: 14.5%;
+		background-color: #a85e55;
+		border: 0.1em solid #7f463f;
+		border-left: none;
+		display: none;
+	}
+
+	#schedule_assessment:hover {
+		background-color: #7f463f;
+	}
+
+	#teacher_annoucements {
+		position: absolute;
+		height: 20%;
+		width: 60%;
+		background-color: #F08080;
+		border: 0.1em solid #af4444;
+		border-bottom: none;
+		top: 3%;
+		color: #fff;
+		left: 18.5%;
+		overflow: hidden;
+	}
+
+	#teacher_logout {
+		position: absolute;
+		left: 79.13616398243045%;
+		top: 43%;
+		height: 7.5%;
+		width: 10%;
+		background-color: #870000;
+		border-radius: 0.1em;
+		cursor: pointer;
+		border: 0.1em solid #630000;
+	}
+
+	#teacher_logout h4 {
+		position: absolute;
+		color: #fff;
+		font-size: 120%;
+		left: 10%;
+		top: -30%;
+	}
+
+	#teacher_logout:hover {
+		background-color: #630000;
+	}
+
+	#flag {
+		position: absolute;
+		height: 65%;
+		width: 40%;
+		background-color: #4c0808;
+		color: #fff;
+		top: 20%;
+		left: -45%;
+		z-index: 999;
+		border-right: 0.2em solid #e02a2a;
+	}
+
+	#submit_report_case {
+		 position: absolute;
+		 left: 63%;
+		 top: 82%;
+		 height: 10%;
+		 width: 20%;
+		 background-color: #870000;
+	 	 border-radius: 0.1em;
+	 	 cursor: pointer;
+		 border: 0.1em solid #630000;
+		 display: none;
+	}
+
+	#submit_report_case:hover {
+		background-color: #630000;
+	}
+
+	#submit_report_case_cover {
+		 position: absolute;
+		 left: 63%;
+		 top: 82%;
+		 height: 10%;
+		 width: 20%;
+	 	 border-radius: 0.1em;
+	 	 cursor: pointer;
+	}
+
+	#teacher_classes_container {
+		overflow-y: auto;
+		overflow-x: hidden;
+		position: relative;
+		z-index: 988;
+		height: 75%;
+		top: 13.25%;
+		width: 65%;
+		background-color: #e2e2e2;
+		z-index: 980;
+		left: -69%;
+		border-top: 0.2em solid #18663f;
+		border-bottom: 0.2em solid #18663f;
+	}
+
+	#class_statistics {
+		display: none;
+		position: absolute;
+		left: 79.13616398243045%;
+		top: 52%;
+		height: 35%;
+		width: 15%;
+		border: 0.1em solid #1f3b60;
+		background-color: #587baa;
+	}
+
+	#publish_assignment_teacher {
+		position: absolute;
+		left: 79.13616398243045%;
+		top: 88.5%;
+		height: 8%;
+		width: 10%;
+		background-color: #70c170;
+		border: 0.1em solid #5d9b5d;
+		cursor: pointer;
+	}
+
+	#publish_assignment_teacher h3 {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		top: -5%;
+		color: #fff;
+	}
+
+	#publish_assignment_teacher:hover {
+		background-color: #5d9b5d;
+	}
+
+/* _____________ */
+/* Classes		 */
+
+	.teacher_class_tile {
+		position: absolute;
+		cursor: pointer;
+		left: 5%;
+		width: 40%;
+		height: 35%;
+		background-color: #000;
+		top: 18%;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
+	.teacher_select_button {
+		cursor: pointer;
+	}
+
+	.teacher_select_button h4 {
+		font-size: 95%;
+		text-align: center;
+		line-height: 55%;
+		color: #fff;
+	}
+
+	.teacher_class_tile h4 {
+		position: absolute;
+		left: 50%;
+		text-align: center;
+		transform: translate(-50%);
+		color: #fff;
+		top: 25%;
+	}
+
+	.teacher_selector_button {
+		position: relative;
+		height: 100%;
+		width: 35%;
+		background-color: #cecece;
+		float: left;
+		border-radius: 0.1em;
+		cursor: pointer;
+		overflow: hidden;
+	}
+
+	.teacher_selector_button h3 {
+		position: relative;
+	}
+
+	.teacher_selector_button_inside {
+		position: relative;
+		height: 100%;
+		width: 100%;
+		top: 90%;
+	}
+
+	.teacher_selector_button:hover .teacher_selector_button_inside {
+		top: 0%;
+	}
+
+	.teacher_schedule_button {
+		position: absolute;
+		height: 40%;
+		width: 25%;
+		background-color: #b77373;
+		top: 20%;
+		border: 0.1em solid #966464;
+		border-left: none;
+		cursor: pointer;
+	}
+
+	.teacher_schedule_button:hover {
+		background-color: #966464 !important;
+	}
+
+/* _________ */
