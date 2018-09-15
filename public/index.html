@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+<script src="/js/framework.js"></script>
+<script src="/js/parallax.js"></script>
+
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<link rel="stylesheet" href="stylesheet.css">
+
+<title>Overflow Prototype Platform</title>
+
+<!-- Start of Login Screen -->
+<div id="login_screen" style="position: absolute; top: 0%; left: 0%; height: 100%; width: 100%; background-image: url(pics/portal/dims.jpg); background-position: center; background-attachment: fixed;">
+
+	<!-- Start of Input Box -->
+	<div id="input_box" style="background-color: #fff; position: absolute; height: 60%; width: 35%; top: 25%; left: 25%; border-radius: 2.5px; border: 0.1em solid #d1cfcf;">
+
+		<!-- This is where the user puts in their login credentials -->
+
+		<h1 style="font-family: Arial; font-size: 250%; text-align: center;" id="login_portal_text">Login Portal</h1>
+
+		<input type="text" placeholder="ex. abc@gmail.com" style="position: absolute; top: 25%; left: 45%;" id="studentid"></input>
+		<h1 id="email_text" style="position: absolute; font-size: 125%; font-family: Arial; left: 10%; top: 25%;">Email:</h1>
+
+		<input type="password" placeholder="Password" style="position: absolute; top: 40%; left: 45%;" id="password"></input>
+		<h1 id="password_text" style="position: absolute; font-size: 125%; font-family: Arial; left: 10%; top: 40%;">Password:</h1>
+
+		<div style="position: absolute; background-color: #80BAE0; width: 80%; left: 10%; top: 55%; height: 1%;"></div>
+
+		<h1 id="remember_password" style="position: absolute; font-size: 100%; font-family: Arial; left: 10%; top: 60%; cursor: pointer;" title="Click Here">Remember your password for 30 days?</h1>
+
+		<h1 id="password_recovery" style="position: absolute; font-size: 80%; font-family: Arial; left: 10%; top: 68%; cursor: pointer;" title="Click Here">Forgot your password?<h1>
+
+		<h1 style="text-align: center; font-size: 60%; top: 80%; position: absolute; left: 50%; transform: translateX(-50%);">&copy; Nicholas Smith 2018 | REPORT A BUG</h1>
+
+		<div id="submit_button" onclick="submit()" style="position: absolute; cursor: pointer; width: 35%; height: 14%; text-align: center;">
+			<h2 style="line-height: 55%;">Submit</h2>
+		</div>
+
+	</div>
+
+	<div id="front_logo1" style="position: absolute; height: 11%; width: 5.5%; left: 61.5%; background-color: #fff; top: 25%; border: 0.1em solid #3fb7fc; background-color: #93cdff; border-radius: 3px;">
+		<div style="position: absolute; height: 80%; top: 10%; width: 80%; left: 10%; background-image: url(pics/Overflow_Tiny.png); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+	</div>
+	<div id="front_logo2" style="position: absolute; height: 11%; width: 5.5%; left: 67.5%; background-color: #fff; top: 25%; border: 0.1em solid #d1b100; background-color: #cec179; border-radius: 3px;">
+		<div style="position: absolute; height: 80%; top: 10%; width: 80%; left: 10%; background-image: url(pics/misj.png); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+	</div>
+
+	<div id="front_input" style="position: absolute; height: 15%; width: 20%; left: 61.5%; top: 38%; background-color: #000; color: #fff; border-radius: 3px; background-color: #bbc99f; border: 0.1em solid #9eaa85;">
+		<h3 style="position: absolute; font-size: 100%; left: 5%; top: 1%;">Something to inspire you..</h3>
+		<div style="position: absolute; width: 80%; left: 5%; top: 36%; height: 40%;">
+			<p id="quote" style="font-size: 80%; position: absolute; top: -20%;">This is some really deep quote</p>
+		</div>
+	</div>
+
+	<div id="today_in_history" style="position: absolute; left: 61.5%; top: 55%; height: 25%; width: 20%; background-color: #e57660; color: #fff; border: 0.1em solid #f75d42; border-radius: 3px;">
+		<h3 style="position: absolute; font-size: 100%; left: 5%; top: 3%;">Today in history</h3>
+
+		<div style="position: absolute; width: 100%; height: 30%; background-color: #a37d77; border-top: 0.1em solid #7f615d; border-bottom: 0.1em solid #7f615d; top: 30%;">
+			<div style="position: absolute; width: 90%; height: 80%; top: 10%; left: 5%; font-size: 65%; overflow: hidden;" id="random_fact1">
+				loading...
+			</div>
+		</div>
+
+		<div style="position: absolute; width: 100%; height: 30%; border-top: 0.1em solid #466787; border-bottom: 0.1em solid #466787; background-color: #4f7da8; top: 65%;">
+			<div style="position: absolute; width: 90%; height: 80%; top: 10%; left: 5%; font-size: 65%; overflow: hidden;" id="random_fact2">
+				loading...
+			</div>
+		</div>
+
+	</div>
+
+	<!-- End of Input Box -->
+
+	<h1 style="position: absolute; transform: translateX(-50%); left: 50%; top: 87%; color: red;" id="error_text"></h1>
+
+	<div id="recovery_box" style="background-color: #fff; position: fixed; height: 30%; width: 35%; top: -85%; left: 32.5%; border-radius: 2.5px;">
+		<h1 style="font-family: Arial; font-size: 200%; text-align: center;">Password Recovery</h1>
+
+		<input type="text" placeholder="ex. abc@gmail.com" style="position: absolute; top: 40%; left: 45%;" id="studentid"></input>
+		<h1 style="position: absolute; font-size: 125%; font-family: Arial; left: 10%; top: 40%;">Email:</h1>
+
+		<div id="submit_button_new" onclick="submit()" style="position: absolute; cursor: pointer; width: 35%; height: 28%; text-align: center;">
+			<h2 style="line-height: 55%;">Submit</h2>
+		</div>
+
+		<div style="position: absolute; left: 50%; transform: translateX(-50%); height: 15%; width: 85%; top: 65%; text-align: center;">
+			Please enter your email here. We will send a link to recover your account there.
+		</div>
+
+		<h1 style="position: absolute; left: 5%; font-size: 100%; top: 100%; cursor: pointer;" id="back_button"><< Back</h1>
+		</div>
+
+</div>
+<!-- End of Login Screen -->
+
+<div id="dashboard" style="position: fixed; left: 0%; top: 100%; height: 100%; width: 100%; z-index: 968; overflow: hidden;">
+
+	<!-- Start of Global Chat UI -->
+	<div style="position: absolute; height: 60%; width: 40%; background-color: #ede6e6; top: 37%; left: -30%; z-index: 968;" id="global_chatUI">
+		<div style="position: absolute; height: 2%; width: 100%; left: 0%; top: 0%; background-color: #ce1010;"></div>
+		<div style="position: absolute; height: 6%; width: 100%; background-color: #e82e2e; top: 2%; left: 0%;">
+			<h4 style="color: #fff; transform: translateX(-50%); left: 50%; position: absolute; top: -75%;">Global Chat</h4>
+
+			<div style="position: absolute; height: 100%; width: 4%; background-color: #490202; cursor: pointer; left: 96%;" id="globalchat_close">
+				<h1 style="font-size: 120%; text-align: center; line-height: 0%; color: #fff;">X</h1>
+			</div>
+
+		</div>
+
+		<div style="position: absolute; height: 2%; width: 20%; height: 12%; left: 77.5%; top: 83.5%; cursor: pointer;" id="submit_button_chat" onclick="send_global_msg();">
+			<h4 style="position: absolute; left: 50%; transform: translateX(-50%); top: -15%;">Send</h4>
+		</div>
+
+		<input type="text" id="global_chatmsg" style="position: absolute; height: 6%; width: 70%; left: 2.5%; top: 83.5%;" placeholder="send a message to the global chat"></input>
+
+		<div style="position: absolute; height: 72.5%; top: 11%; width: 95%; left: 2.5%; background-color: #fff; overflow-y: auto;" id="global_chat_scroll">
+			<div id="global_chat_log" style="position: absolute; width: 97%; height: 95%; top: 2.5%; left: 1.5%; overflow-wrap: break-word;">
+
+				<a style="font-weight: bold;">
+					Welcome to the global chat. Here you can send messages to the entire school.<br>
+					<br>
+					Please respect one another and use appriopriate language.
+					<br><br>
+				</a>
+
+			</div>
+		</div>
+
+	</div>
+	<!-- End of Global Chat UI -->
+
+	<!-- Start of Class Chat UI -->
+	<div style="position: absolute; height: 60%; width: 40%; background-color: #ede6e6; top: 37%; left: -30%; z-index: 968;" id="class_chat_ui">
+		<div style="position: absolute; height: 2%; width: 100%; left: 0%; top: 0%; background-color: #579cc6;"></div>
+		<div style="position: absolute; height: 6%; width: 100%; background-color: #80bae0; top: 2%; left: 0%;">
+			<h4 style="color: #fff; transform: translateX(-50%); left: 50%; position: absolute; top: -75%;">Class Chat</h4>
+
+			<div style="position: absolute; height: 100%; width: 4%; background-color: #490202; cursor: pointer; left: 96%;" id="classchat_close">
+				<h1 style="font-size: 120%; text-align: center; line-height: 0%; color: #fff;">X</h1>
+			</div>
+
+		</div>
+
+		<div style="position: absolute; height: 2%; width: 20%; height: 12%; left: 77.5%; top: 83.5%; cursor: pointer;" id="submit_button_chat" onclick="send_class_msg();">
+			<h4 style="position: absolute; left: 50%; transform: translateX(-50%); top: -15%;">Send</h4>
+		</div>
+
+		<input type="text" id="class_chat_msg" style="position: absolute; height: 6%; width: 70%; left: 2.5%; top: 83.5%;" placeholder="send a message to your class"></input>
+
+		<div style="position: absolute; height: 72.5%; top: 11%; width: 95%; left: 2.5%; background-color: #fff; overflow-y: auto;" id="class_chat_scroll">
+			<div id="class_chat_log" style="position: absolute; width: 97%; height: 95%; top: 2.5%; left: 1.5%; overflow-wrap: break-word;">
+
+				<a style="font-weight: bold;">
+					Welcome to the class chat. Here you can send messages to members of your class.<br>
+					<br>
+					Please respect one another and use appriopriate language.
+					<br><br>
+				</a>
+
+			</div>
+		</div>
+
+	</div>
+	<!-- End of Class Chat UI -->
+
+	<div style="position: absolute; height: 100%; width: 17%; background-color: #42351f; left: 0%; top: 0%; z-index: 999;" id="button_dialog">
+
+		<div style="position: absolute; background-color: #9359c6; height: 10%; width: 102%; left: 0%; top: 0%; z-index: 999;">
+			<h1 style="font-style: italic; font-size: 300%; text-align: center; line-height: 25%; color: #fff;">overflow</h1>
+		</div>
+
+		<div style="top: 15%" class="buttn" id="global_chat">
+			<h3 style="position: absolute; line-height: 50%; left: 5%;">Global Chat</h3>
+
+			<div style="position: absolute; height: 100%; width: 2%; background-color: #ef4b28;"></div>
+			<div class="buttn_hover animation"></div>
+		</div>
+
+		<div style="top: 22.25%" class="buttn" id="class_chat_button">
+			<h3 style="position: absolute; line-height: 50%; left: 5%;">Class Chat</h3>
+
+			<div style="position: absolute; height: 100%; width: 2%; background-color: #69abe5;"></div>
+			<div class="buttn_hover animation"></div>
+
+		</div>
+
+		<div style="top: 29.5%" class="buttn" id="private_chats">
+			<h3 style="position: absolute; line-height: 50%; left: 5%;">Private Chats</h3>
+
+			<div style="position: absolute; height: 100%; width: 2%; background-color: #fee205;"></div>
+			<div class="animation buttn_hover"></div>
+
+		</div>
+
+		<div style="top: 38.5%" class="buttn">
+			<h3 style="position: absolute; line-height: 50%; left: 5%;">Holidays</h3>
+
+			<div style="position: absolute; height: 100%; width: 2%; background-color: #e02a2a;"></div>
+			<div class="animation buttn_hover"></div>
+
+		</div>
+
+		<div style="top: 47.5%" class="buttn" id="classes">
+			<h3 style="position: absolute; line-height: 50%; left: 5%;">Classes</h3>
+
+			<div style="position: absolute; height: 100%; width: 2%; background-color: #6d9223;"></div>
+			<div class="animation buttn_hover"></div>
+
+		</div>
+
+	</div>
+
+	<!-- Class Selection -->
+	<div id="classes_spotlightX" class="classes_spotlightX animation">
+
+	<!-- Top and bottom borders -->
+		<div style="position: absolute; height: 0.5%; width: 100%; background-color: #18663f;"></div>
+		<div style="position: absolute; height: 0.5%; width: 100%; top: 99.5%; background-color: #18663f;"></div>
+	<!-- ______________________ -->
+
+	<!-- "Classes" title -->
+		<h1 style="position: absolute; left: 50%; transform: translate(-50%);">Classes</h1>
+	<!-- _______________ -->
+
+		<!--<div style="position: absolute; width: 33.3%; height: 35%; top: 15%; cursor: pointer;" class="move_down animation">
+
+			<div class="move_down_insides animation" style="background-image: url(pics/portal/dims.jpg); color: #fff;">
+				<div style="position: absolute; height: 35%; width: 80%; left: 10%; top: 30%; text-align: center;">
+					<h3></h3>
+				</div>
+			</div>
+
+			<div class="move_down_outsides animation">
+				<h4 style="position: absolute; color: #fff; left: 5%;">No upcoming assessments.</h4>
+				<h4 style="position: absolute; color: #fff; left: 5%; top: 5%; font-size: 150%;">2 Periods in 1917.</h4>
+			</div>
+		</div>-->
+
+	<!-- #339966 -->
+		<!--<h1 style="position: absolute; font-weight: bold; font-size: 300%; top: -20%; left: 2%; background-color: #840303; color: #fff;">Classes</h1>-->
+		<div style="position: absolute; height: 100%; width: 1%; left: 100%; background-color: #18663f;"></div>
+
+	</div>
+	<!-- _______________ -->
+
+	<div id="assignment_ui">
+		<h2 style="color: #fff; position: absolute; left: 5%;">Quadratic Functions<sup> (?)</sup></h2>
+		<div id="assignment_ui_content">
+			<p id="assignment_ui_description">Awesome. I got this shit to work!			</p>
+		</div>
+	</div>
+
+	<div id="announcements">
+			<h1 style="position: absolute; left: 2.5%; top: 20%;" id="next_2_weeks">Next 2 Weeks</h1>
+			<h1 id="annoucements_text" style="position: absolute; font-size: 150%; left: 2.5%;">No announcements today.</h1>
+
+				<div class="day" id="day1">
+				</div>
+				<div class="day" id="day2" style="left: 14.285714285714286%">
+				</div>
+				<div class="day" id="day3" style="left: 28.571428571428573%">
+				</div>
+				<div class="day" id="day4" style="left: 42.85714285714286%">
+				</div>
+				<div class="day" id="day5" style="left: 57.142857142857146%">
+				</div>
+				<div class="day" id="day6" style="left: 71.42857142857143%">
+				</div>
+				<div class="day" id="day7" style="left: 85.71428571428572%">
+				</div>
+
+		</div>
+
+		<table id="calendar_table">
+
+			<tr>
+				<td class="tile">
+				<div class="tile_child">
+						<b>HIST. HL</b><br>
+						Reading Assignment: Causes of WW1
+					</div>
+				</td>
+				<td class="tile"></td>
+				<td class="tile"></td>
+				<td class="tile"></td>
+				<td class="tile"></td>
+				<td class="tile"></td>
+				<td class="tile"></td>
+			</tr>
+			<tr>
+				<td class="tile"></td>
+				<td class="tile"></td>
+				<td class="tile"></td>
+				<td class="tile"></td>
+				<td class="tile"></td>
+				<td class="tile"></td>
+				<td class="tile"></td>
+			</tr>
+
+	</table>
+
+	<div id="progress_bar" style="position: absolute; left: 18.5%; height: 4%; width: 60%;" title="Workflow Chart">
+			<div id="progress_0" class="progress_bar"></div>
+			<div id="progress_1" class="progress_bar"></div>
+			<div id="progress_2" class="progress_bar"></div>
+			<div id="progress_3" class="progress_bar"></div>
+			<div id="progress_4" class="progress_bar"></div>
+			<div id="progress_5" class="progress_bar"></div>
+			<div id="progress_6" class="progress_bar"></div>
+	</div>
+
+	<div style="position: absolute; height: 10%; width: 29.125%; left: 18.5%;" id="annoucements_holder">
+		<div class="annoucement_box">
+			 <b>Critical Security Notification</b><br>
+			 This is a long message that is used for the purpose of delivering urgent communications to the students.
+			 <br><i>- 1337OverflowDevelopers</i>
+		</div>
+		<div class="annoucement_box">
+			<b>Some Other Information</b><br>
+			This is another long text that is used for the purpose of delivering urgent communications to the students.
+			<br><i>- The School</i>
+		</div>
+	</div>
+
+	<div id="chopping_block">
+
+		<div style="position: absolute; margin-top: 3%; margin-left: 3%; width: 90%; height: 25%; background-color: #fff; color: #fff;	" id="chopping_block_title_holder">
+			<h3 style="margin-left: 2.5%; margin-top: 3%;" id="chopping_block_title">Loading...</h3>
+		</div>
+
+		<div style="position: absolute; height: 24.5%; width: 10%; top: 40%; left: 3%; border: 0.1em solid #fff; border-radius: 0.1em;" id="chopping_block_picture" class="cover"></div>
+
+		<div style="position: absolute; height: 26%; width: 78%; top: 40%; left: 15%; border-left: 0.1em solid #fff; color: #fff;">
+			<section style="margin-left: 2%;" id="chopping_block_description">
+				Loading...
+			</section>
+		</div>
+
+		<div style="position: relative; height: 28%; left: 3%;"></div>
+
+	</div>
+
+	<div id="class_calendar_days">
+		<div class="day_special">
+			<h3>Sunday</h3>
+		</div>
+		<div class="day_special" style="left: 14.285714285714286%">
+			<h3>Monday</h3>
+		</div>
+		<div class="day_special" style="left: 28.571428571428573%">
+			<h3>Tuesday</h3>
+		</div>
+		<div class="day_special" style="left: 42.85714285714286%">
+			<h3>Wednesday</h3>
+		</div>
+		<div class="day_special" style="left: 57.142857142857146%">
+			<h3>Thursday</h3>
+		</div>
+		<div class="day_special" style="left: 71.42857142857143%">
+			<h3>Friday</h3>
+		</div>
+		<div class="day_special" style="left: 85.71428571428572%">
+			<h3>Saturday</h3>
+		</div>
+	</div>
+
+	<div id="average_grade">
+			<h1>Your average grade:</h1>
+
+			<div id="average_grade_hidden" class="animation">
+				<h3 style="font-size: 80%; text-align: center; color: #fff;">hover here</h3>
+			</div>
+
+			<div id="average_grade_show" class="animation">
+				<h3 style="font-size: 105%; text-align: center; color: #fff;">6.25</h3>
+			</div>
+	</div>
+
+	<div id="class_name" style="background-position: center;">
+		<h2 id="class_name_text">Some class name</h2>
+	</div>
+
+		<div id="buttons_class">
+
+			<div class="button_class_select" onclick="current_button_selected('calendar')">
+				<h4 style="position: absolute; top: -10%; color: #000; left: 50%; transform: translateX(-50%);">Calendar</h4>
+				<div class="button_class_select_hover animation">
+					<h4 style="position: absolute; top: -10%; color: #fff; left: 50%; transform: translateX(-50%);">1 new</h4>
+				</div>
+			</div>
+			<div class="button_class_select" style="left: 15%;" onclick="current_button_selected('messages');">
+				<h4 style="position: absolute; top: -10%; color: #000; left: 50%; transform: translateX(-50%);">Messages</h4>
+				<div class="button_class_select_hover animation" style="background-color: #d85656 !important;">
+					<h4 style="position: absolute; top: -10%; color: #fff; left: 50%; transform: translateX(-50%);">1 new</h4>
+				</div>
+			</div>
+			<div class="button_class_select" style="left: 30%;" onclick="current_button_selected('tasks');">
+				<h4 style="position: absolute; top: -10%; color: #000; left: 50%; transform: translateX(-50%);">Tasks</h4>
+				<div class="button_class_select_hover animation" style="background-color: #48a09a !important;">
+					<h4 style="position: absolute; top: -10%; color: #fff; left: 50%; transform: translateX(-50%);">1 new</h4>
+				</div>
+			</div>
+			<div class="button_class_select" style="left: 45%;" onclick="current_button_selected('files');">
+				<h4 style="position: absolute; top: -10%; color: #000; left: 50%; transform: translateX(-50%);">Files</h4>
+				<div class="button_class_select_hover animation" style="background-color: #e59100 !important;">
+					<h4 style="position: absolute; top: -10%; color: #fff; left: 50%; transform: translateX(-50%);">1 new</h4>
+				</div>
+			</div>
+
+		</div>
+
+		<div style="position: absolute; left: 18.5%; top: 48%; height: 10%; width: 10%; background-color: #000; display: none;">
+		</div>
+
+		<div id="user_lockout" style="height: 10%; width: 20%; background-color: #826e4b; border: 0.1em solid #68583c; position: absolute; top: 3%; left: 79.13616398243045%;">
+
+			<div id="profile_picture" style="position: absolute; height: 70%; width: 17%; background-color: #fff; top: 15%; left: 3%;">
+			</div>
+
+			<h2 id="name" style="position: absolute; font-size: 115%; left: 22%; top: -2%; color: #fff;"></h2>
+
+			<div class="logout_button" onclick="logout();" style="z-index: 1; background-color: #870000; text-align: center; font-size: 80%; line-height: 150%; color: #fff;">LOGOUT</div>
+			<div class="logout_button" style="background-color: #000; top: 58%;"></div>
+
+		</div>
+
+		<div id="logo" style="animation: fading2 2s infinite; top: 15%; left: 79.13616398243045%; height: 30%; width: 16%; position: absolute; border: 0.1em solid #3fb7fc; background-color: #93cdff; z-index: -999;">
+			<div style="position: absolute; height: 80%; width: 80%; top: 10%; left: 10%; background-image: url(pics/Overflow_Tiny.png); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+		</div>
+
+		<div style="position: absolute; left: 79.13616398243045%; top: 47%; width: 17%; height: 32.5%; background-color: #d6995c; border: 0.1em solid #ad7d4f;">
+			<h2 style="position: absolute; color: #fff; font-size: 110%; left: 5%;">Your Notifications</h2>
+
+			<h3 style="position: absolute; font-size: 80%; left: 5%; color: #e8e8e8; top: 15%;">academics</h3>
+			<h3 style="position: absolute; font-size: 80%; left: 5%; color: #e8e8e8; top: 52%;">social</h3>
+
+			<div style="position: absolute; cursor: pointer; width: 100%; height: 25%; background-color: #65c400; border-top: 0.1em solid #509b00; border-bottom: 0.1em solid #509b00; top: 29.5%;">
+				<h3 style="position: absolute; color: #fff; font-size: 100%; left: 5%; top: -15%;">0 new grades</h3>
+				<h3 style="position: absolute; color: #fff; font-size: 100%; left: 5%; top: 20%;">0 new assessments</h3>
+			</div>
+
+			<div style="position: absolute; cursor: pointer; width: 100%; height: 30%; background-color: #d563ff; border-top: 0.1em solid #9700d3; border-bottom: 0.1em solid #9700d3; top: 67%;">
+				<h3 style="position: absolute; color: #fff; font-size: 90%; left: 5%; top: -15%;">0 new direct messages</h3>
+				<h3 style="position: absolute; color: #fff; font-size: 90%; left: 5%; top: 15%;">0 new annoucements</h3>
+				<h3 style="position: absolute; color: #fff; font-size: 90%; left: 5%; top: 43%;">0 new class messages</h3>
+			</div>
+
+		</div>
+
+		<div id="offline" style="position: absolute; height: 10%; width: 100%; background-color: #ed5e5e; z-index: 999; top: -10%;">
+			<h1 style="position: absolute; left: 50%; transform: translateX(-50%);">Oops! It looks like you've gone offline.</h1>
+		</div>
+
+		<div id="file_results_container" style="position: absolute; display: none; width: 60%; height: 80%; left: 18.5%; background-color: #008080; top: 28.25%; border: 0.1em solid #004c4c;" id="files">
+		</div>
+
+		<div style="position: absolute; display: none; width: 40%; height: 8%; top: 33%; left: 39.5%; transform: translateX(-50%); background-color: #D2B48C; border: 0.1em solid #826f57;" id="file_search_bar">
+			<h3 style="position: absolute; color: #fff; left: 2%; top: -9%;">Looking for something?</h3>
+			<input style="position: absolute; height: 25%; width: 50%; top: 12%; left: 43%;" type="text" placeholder="Search for it here"></input>
+		</div>
+
+		<div id="submit_search" onclick="search()">
+			<h4>Search!</h4>
+		</div>
+
+		<div id="searching_text" class="animation">
+			<h2 id="searching_texttxt">Searching...</h2>
+		</div>
+
+	<div id="private_chatsUI">
+
+		<div style="position: absolute; height: 10%; left: 2.5%; width: 40%; background-color: #fff; top: 10%;">
+			<h1>Private chats</h1>
+		</div>
+
+	</div>
+
+</div>
+
+<!-- Teacher dashboard beyond this point -->
+<!-- Teacher dashboard beyond this point -->
+<!-- Teacher dashboard beyond this point -->
+<!-- Teacher dashboard beyond this point -->
+
+<div id="teacher_dashboard">
+	<div style="position: absolute; height: 100%; width: 17%; background-color: #42351f; left: 0%; top: 0%; z-index: 999; margin-right: 1.5%;" id="button_dialog_teacher">
+
+		<!-- Minor button difference is 7.25% -->
+		<!-- Major button difference is 9% -->
+
+		<div style="position: absolute; background-color: #9359c6; height: 10%; width: 102%; left: 0%; top: 0%; z-index: 999;">
+			<h1 style="font-style: italic; font-size: 300%; text-align: center; line-height: 25%; color: #fff;">overflow</h1>
+		</div>
+
+		<div style="top: 13.25%" class="buttn" id="teacher_classes_button">
+			<h3 style="position: absolute; line-height: 50%; left: 5%;">Your Classes</h3>
+
+			<div style="position: absolute; height: 100%; width: 2%; background-color: #1e8d94;"></div>
+			<div class="buttn_hover animation"></div>
+		</div>
+
+		<div style="top: 22.25%" class="buttn" id="class_chat_button">
+			<h3 style="position: absolute; line-height: 50%; left: 5%;">Class Chat</h3>
+
+			<div style="position: absolute; height: 100%; width: 2%; background-color: #fee205;"></div>
+			<div class="buttn_hover animation"></div>
+		</div>
+
+		<div style="top: 29.5%" class="buttn" id="private_chats">
+			<h3 style="position: absolute; line-height: 50%; left: 5%;">Private Chats</h3>
+
+			<div style="position: absolute; height: 100%; width: 2%; background-color: #fee205;"></div>
+			<div class="animation buttn_hover"></div>
+		</div>
+
+		<div style="top: 38.5%" id="flag_button" class="buttn animation">
+			<h3 style="position: absolute; line-height: 50%; left: 5%;">Flags</h3>
+
+			<div style="position: absolute; height: 100%; width: 2%; background-color: #e02a2a;"></div>
+			<div class="animation buttn_hover"></div>
+		</div>
+
+		<div style="top: 45.75%" class="buttn" id="">
+			<h3 style="position: absolute; line-height: 50%; left: 5%;">Attendance</h3>
+
+			<div style="position: absolute; height: 100%; width: 2%; background-color: #e02a2a;"></div>
+			<div class="animation buttn_hover"></div>
+		</div>
+
+	</div>
+
+	<div id="teacher_classes_container" class="animation">
+		<h1 style="position: absolute; left: 5%; top: 2%;">Classes</h1>
+
+		<!--<div class="teacher_class_tile" style="position: absolute; left: 5%; width: 40%; height: 35%; background-color: #000; top: 18%;">
+			<h4>Language Acquisition Bahasa Indonesia</h4>
+		</div>-->
+
+	</div>
+
+	<div id="flag" class="transition">
+
+		<h2 style="position: absolute; left: 5%; top: 7%; cursor: default;" title="both students and teachers can be flagged.">Flag deviant behaviour</h2>
+
+		<div style="position"></div>
+
+		<h3 style="position: absolute; left: 5%; top: 20%;">Person:</h3>
+		<input type="text" style="position: absolute; top: 23.5%; left: 18%; height: 1%; width: 22%;" placeholder="enter name here."></input>
+
+		<h3 style="position: absolute; left: 50%; top: 20%;">Grade:</h3>
+		<input type="text" style="position: absolute; top: 23.5%; left: 61.5%; height: 1%; width: 6%;" placeholder=""></input>
+
+		<h3 style="position: absolute; left: 5%; top: 33%;">Severity Level:</h3>
+		<select style="position: absolute; left: 30%; height: 7%; top: 36%; width: 30%; outline: none;">
+			<option value="1">Low</option>
+			<option value="2">Medium-Low</option>
+			<option value="3">Medium</option>
+			<option value="4">High</option>
+			<option value="5">Extremely High</option>
+		</select>
+
+		<h3 style="position: absolute; left: 63%; top: 33%;">Type:</h3>
+		<select style="position: absolute; left: 73%; height: 7%; top: 36%; width: 20%; outline: none;">
+			<option value="0">Not Urgent</option>
+			<option value="1">Urgent</option>
+		</select>
+
+		<div style="position: absolute; width: 33.5%; height: 30%; left: 63%; top: 56%;">
+			<input type="checkbox" id="report_confirmation">I have reviewed this case, and to the best of understanding, the information inputed here is correct.</input>
+		</div>
+
+		<h3 style="position: absolute; left: 5%; top: 45%;">Description of event:</h3>
+		<textarea style="position: absolute; left: 5%; resize: none; top: 56%; width: 50%; height: 30%;"></textarea>
+
+		<div id="submit_report_case_cover" style="background-color: #939393; border: 0.1em solid #5b5959; color: #a0a0a0;">
+			<h4 style="position: absolute; left: 50%; transform: translate(-50%); top: -20%;">Submit</h4>
+		</div>
+
+		<div id="submit_report_case" class="animation">
+			<h4 style="position: absolute; left: 50%; transform: translate(-50%); top: -20%;">Submit</h4>
+		</div>
+
+	</div>
+
+	<div id="barcode" style="position: absolute; top: 3%; left: 79.13616398243045%; border: 0.1em solid #ccc; height: 7%; width: 16%; background-image: url(pics/barcodes/SSCC-Pallet-Barcode.jpg); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+
+	<div id="logo_teacher" style="animation: fading2 2s infinite; top: 11.5%; left: 79.13616398243045%; height: 30%; width: 16%; position: absolute; border: 0.1em solid #3fb7fc; background-color: #93cdff;">
+		<div style="position: absolute; height: 80%; width: 80%; top: 10%; left: 10%; background-image: url(pics/Overflow_Tiny.png); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+	</div>
+
+	<div id="teacher_annoucements">
+		<h1 style="position: absolute; left: 2.5%; top: 20%;" id="next_2_weeks">Next 2 Weeks</h1>
+		<h1 id="teacher_welcome_txt" style="position: absolute; font-size: 150%; left: 2.5%;">Welcome back to Overflow, {name}!</h1>
+
+		<div style="position: absolute; width: 7.5%; height: 45%; background-color: #fff; left: 87%; top: 14%; border: 0.1em solid #ccc; border-radius: 3px;">
+		</div>
+
+		<div style="position: absolute; width: 7.5%; height: 45%; background-color: #fff; left: 78.5%; top: 14%; border: 0.1em solid #ccc; border-radius: 3px; border: 0.1em solid #d1b100; background-color: #cec179; border-radius: 3px;">
+			<div style="position: absolute; height: 80%; top: 10%; width: 80%; left: 10%; background-image: url(pics/misj.png); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+		</div>
+
+		<div style="position: absolute; width: 7.5%; height: 45%; background-color: #fca1b6; left: 70%; top: 14%; border: 0.1em solid #ef1a4c; border-radius: 3px;">
+			<div style="position: absolute; height: 82.5%; top: 7.5%; width: 80%; left: 10%; background-image: url(pics/pancasila.png); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+		</div>
+
+		<div class="day">
+			<h3>Sunday</h3>
+		</div>
+		<div class="day" style="left: 14.285714285714286%">
+			<h3>Monday</h3>
+		</div>
+		<div class="day" style="left: 28.571428571428573%">
+			<h3>Tuesday</h3>
+		</div>
+		<div class="day" style="left: 42.85714285714286%">
+			<h3>Wednesday</h3>
+		</div>
+		<div class="day" style="left: 57.142857142857146%">
+			<h3>Thursday</h3>
+		</div>
+		<div class="day" style="left: 71.42857142857143%">
+			<h3>Friday</h3>
+		</div>
+		<div class="day" style="left: 85.71428571428572%">
+			<h3>Saturday</h3>
+		</div>
+
+	</div>
+
+	<div id="calendar_teacher">
+
+		<div id="calendar_tile1" class="tile">
+		</div>
+
+		<div id="calendar_tile2" class="tile">
+		</div>
+
+		<div id="calendar_tile3" class="tile">
+		</div>
+
+		<div id="calendar_tile4" class="tile">
+		</div>
+
+		<div id="calendar_tile5" class="tile">
+		</div>
+
+		<div id="calendar_tile6" class="tile">
+		</div>
+
+		<div id="calendar_tile7" class="tile" style="position: absolute !important; top: 0% !important; left: 85.7142857143% !important;">
+		</div>
+
+		<div id="calendar_tile_1" class="tile1" style="border-left: 0px;">
+		</div>
+
+		<div id="alendar_tile_2" class="tile1">
+		</div>
+
+		<div id="calendar_tile_3" class="tile1">
+		</div>
+
+		<div id="calendar_tile_4" class="tile1">
+		</div>
+
+		<div id="calendar_tile_5" class="tile1">
+		</div>
+
+		<div id="calendar_tile_6" class="tile1">
+		</div>
+
+		<div id="calendar_tile_7" class="tile1" style="position: absolute !important; top: 50% !important; left: 85.7142857143% !important; border-bottom: none;">
+		</div>
+
+	</div>
+
+	<!--<div style="position: absolute; left: 18.5%; top: 82.5%; height: 20%; width: 20%; background-color: #000;"></div>-->
+
+	<div id="teacher_logout" class="animation" onclick="logout();">
+		<h4>Logout >></h4>
+	</div>
+
+	<!-- Button difference here is 1.5% -->
+	<!-- Formula is top + width + 1.5 -->
+
+	<div style="position: absolute; left: 79.13616398243045%; top: 52%; width: 17%; height: 32.5%; background-color: #d6995c; border: 0.1em solid #ad7d4f;" id="teacher_notifs">
+			<h2 style="position: absolute; color: #fff; font-size: 110%; left: 5%;">Your Notifications</h2>
+
+			<h3 style="position: absolute; font-size: 80%; left: 5%; color: #e8e8e8; top: 15%;">academics</h3>
+			<h3 style="position: absolute; font-size: 80%; left: 5%; color: #e8e8e8; top: 52%;">social</h3>
+
+			<div style="position: absolute; cursor: pointer; width: 100%; height: 25%; background-color: #65c400; border-top: 0.1em solid #509b00; border-bottom: 0.1em solid #509b00; top: 29.5%;">
+				<h3 style="position: absolute; color: #fff; font-size: 100%; left: 5%; top: -15%;">0 new grades</h3>
+				<h3 style="position: absolute; color: #fff; font-size: 100%; left: 5%; top: 20%;">0 new assessments</h3>
+			</div>
+
+			<div style="position: absolute; cursor: pointer; width: 100%; height: 30%; background-color: #d563ff; border-top: 0.1em solid #9700d3; border-bottom: 0.1em solid #9700d3; top: 67%;">
+				<h3 style="position: absolute; color: #fff; font-size: 90%; left: 5%; top: -15%;">0 new direct messages</h3>
+				<h3 style="position: absolute; color: #fff; font-size: 90%; left: 5%; top: 15%;">0 new annoucements</h3>
+				<h3 style="position: absolute; color: #fff; font-size: 90%; left: 5%; top: 43%;">0 new class messages</h3>
+			</div>
+	</div>
+
+	<div id="class_name_teacher" style="top: 3%;">
+		<h2 id="class_name_text_teacher">Some class name</h2>
+	</div>
+
+	<div id="class_statistics">
+
+		<div style="position: absolute; height: 20%; width: 100%; background-color: #d35d5d; top: 2%; border-bottom: 0.1em solid #a54a4a; border-top: 0.1em solid #a54a4a;">
+			<h3 style="color: #fff; position: absolute; left: 5%; top: -11%;">Report Card</h3>
+		</div>
+		<div style="position: absolute; height: 18%; left: 4%; width: 21%; background-color: #dbbd11; top: 28%; border: 0.1em solid #bca210;">
+			<h2 style="position: absolute; color: #fff; left: 50%; transform: translate(-50%); top: -35%;">8</h2>
+		</div>
+		<h4 style="position: absolute; top: 20%; left: 30%; color: #fff;">Average Grade</h4>
+		<h5 style="position: absolute; top: 27%; left: 30%; color: #d3d3d3;">9 above 2 below</h5>
+
+		<div style="position: absolute; height: 18%; left: 4%; width: 21%; background-color: #dbbd11; top: 50%; border: 0.1em solid #bca210;">
+			<h4 style="position: absolute; color: #fff; left: 50%; transform: translate(-50%); top: -25%;">96%</h4>
+		</div>
+		<h4 style="position: absolute; top: 42%; left: 30%; color: #fff;">Average On-Time Submissions</h4>
+
+		<div style="position: absolute; height: 18%; left: 4%; width: 21%; background-color: #dbbd11; top: 72%; border: 0.1em solid #bca210;">
+			<h2 style="position: absolute; color: #fff; left: 50%; transform: translate(-50%); top: -35%;">A</h2>
+		</div>
+		<h4 style="position: absolute; top: 64%; left: 30%; color: #fff;">Strongest Criteria</h4>
+
+	</div>
+
+	<div id="recent_classes" style="display: none;"></div>
+
+	<div id="assessment_analytics" class="teacher_select_button animation">
+		<h4>Analytics</h4>
+	</div>
+	<div id="schedule_assessment" class="teacher_select_button animation">
+		<h4>Assessments</h4>
+	</div>
+
+	<div style="position: absolute; top: 25%; left: 18.5%; height: 7.5%; width: 30%; background-color: #34a853; border: 0.1em solid #246d37; display: none;" id="schedule_assessment_text_teacher">
+		<h2 style="position: absolute; left: 5%; top: -18%; color: #fff;">Schedule an Assessment</h2>
+	</div>
+
+	<div style="position: absolute; left: 18.5%; top: 34%; width: 30%; height: 55%; background-color: #4f604c; border: 0.1em solid #2c352a; display: none;" id="assessment_details_menu_cover">
+	</div>
+
+	<div style="position: absolute; left: 18.5%; top: 34%; width: 30%; height: 40%; display: none;" id="assessment_details_menu">
+		<h4 style="position: absolute; left: 5%; color: #fff; top: -1.5%;">Assessment Name</h4>
+		<input style="position: absolute; height: 2%; width: 80%; left: 5%; top: 14%;" placeholder="Ex. Quadratic Equations" type="text" id="schedule_taskName"></input>
+
+		<h4 style="position: absolute; left: 5%; color: #fff; top: 22%;">Assessment Type</h4>
+		<select id="assessment_type" style="position: absolute; left: 39%; width: 23%; top: 28%; height: 10%;">
+			<option value="formative">Formative</option>
+			<option value="summative">Summative</option>
+		</select>
+		<select id="assessment_medium" style="position: absolute; height: 10%; top: 28%; width: 30%; left: 63%;">
+			<option value="exam">Exam</option>
+			<option value="quiz">Quiz</option>
+			<option value="essay">Essay</option>
+			<option value="video">Video</option>
+			<option value="poster">Poster</option>
+			<option value="artwork">Artwork</option>
+			<option value="other">Other</option>
+		</select>
+
+		<h4 style="position: absolute; left: 5%; color: #fff; top: 33%;" id="date_display">Date: <a style="color: #bf5d5d; font-weight: bold;">Not selected</a></h4>
+		<!--<h4 style="position: absolute; left: 5%; color: #fff; top: 40%;">Duration: <a style="color: #bf5d5d; font-weight: bold;">Not selected</a></h4>-->
+		<h4 style="position: absolute; left: 5%; color: #fff; top: 42%;">Task Desription</h4>
+		<textarea id="assessment_description" style="position: absolute; left: 5%; top: 58.5%; height: 60%; width: 85%;" placeholder="Write something about your task here. Give your students an idea of what the requirements for this assessment is."></textarea>
+
+	</div>
+
+	<div style="position: absolute; width: 29%; height: 45%; top: 25%; left: 49.25%; background-color: #d8a0a0; border-top: 0.1em solid #af4444; display: none" id="schedule_assessment_container">
+		<div style="position: absolute; width: 100%; height: 20%; background-color: #F08080; border-bottom: 0.1em solid #af4444; z-index: 20;">
+			<h4 style="color: #fff; text-align: center;" id="date_today">Today's date is Saturday, July 28, 2018</h4>
+		</div>
+
+		<!--<div class="teacher_schedule_button animation" onclick="schedule_assessment_date('28,5,2018,3');">
+			<div style="position: absolute; width: 80%; left: 10%; top: 10%; height: 80%;">
+				<p style="position: absolute; font-size: 85%; color: #fff; top: -10%;">Saturday,<br> July 28, 2018<br><a style="font-size: 160%">0</a></p>
+			</div>
+		</div>
+		<div class="teacher_schedule_button animation" style="left: 25%;" onclick="schedule_assessment_date('29,5,2018,4');">
+			<div style="position: absolute; width: 80%; left: 10%; top: 10%; height: 80%;">
+				<p style="position: absolute; font-size: 85%; color: #fff; top: -10%;">Sunday,<br> July 29, 2018<br><a style="font-size: 160%">1</a></p>
+			</div>
+		</div>
+		<div class="teacher_schedule_button animation" style="left: 0%; top: 60%;" onclick="schedule_assessment_date('29,5,2018,4');">
+			<div style="position: absolute; width: 80%; left: 10%; top: 10%; height: 80%;">
+				<p style="position: absolute; font-size: 85%; color: #fff; top: -10%;">Sunday,<br> July 29, 2018<br><a style="font-size: 160%">1</a></p>
+			</div>
+		</div>
+		<div class="teacher_schedule_button animation" style="left: 25%; top: 60%;" onclick="schedule_assessment_date('29,5,2018,4');">
+			<div style="position: absolute; width: 80%; left: 10%; top: 10%; height: 80%;">
+				<p style="position: absolute; font-size: 85%; color: #fff; top: -10%;">Sunday,<br> July 29, 2018<br><a style="font-size: 160%">1</a></p>
+			</div>
+		</div>-->
+
+	</div>
+
+	<div style="position: absolute; height: 20%; width: 29%; border: 0.1em solid #564b4a; top: 71.5%; left: 49.25%; background-color: #847978; display: none" id="assessment_settings_details">
+		<h4 style="position: absolute; left: 4%; color: #fff; top: -8%;">Task Criteria:</h4>
+		<div style="position: absolute; width: 60%; height: 35%; left: 30%; top: 8.5%; color: #fff;">
+			<input type="checkbox" id="task_criteria_a">A</input>
+			<input type="checkbox" id="task_criteria_b">B</input>
+			<input type="checkbox" id="task_criteria_c">C</input>
+			<input type="checkbox" id="task_criteria_d">D</input>
+		</div>
+
+		<h4 style="position: absolute; left: 4%; color: #fff; top: 15%;">Venue:</h4>
+		<input type="text" style="position: absolute; height: 1%; width: 30%; top: 28%; left: 18%;" placeholder="Ex. A203 or P201"></input>
+
+		<h4 style="position: absolute; left: 4%; color: #fff; top: 38%;">Duration:</h4>
+		<h4 style="position: absolute; left: 44.5%; color: #fff; top: 38%;">minutes</h4>
+		<input type="text" style="position: absolute; height: 1%; width: 15%; top: 51%; left: 22%;" placeholder="Ex. 120"></input>
+
+		<h4 style="position: absolute; left: 4%; color: #fff; top: 57%;">Time:</h4>
+		<select style="position: absolute; top: 73%; left: 15.6%; width: 9.5%;">
+			<option value="7">7</option>
+			<option value="7">8</option>
+			<option value="7">9</option>
+			<option value="7">10</option>
+			<option value="7">11</option>
+			<option value="7">12</option>
+			<option value="7">13</option>
+			<option value="7">14</option>
+			<option value="7">15</option>
+		</select>
+		<select style="position: absolute; top: 73%; left: 25.6%;" id="schedule_assessment_minutes">
+			<option value="00">00</option>
+		</select>
+
+		<div style="position: absolute; left: 67%; height: 100%; width: 30%; background-color: #961e1e; border-right: 0.1em solid #6b1616; border-left: 0.1em solid #6b1616;">
+			<h3 style="position: absolute; color: #fff; left: 9%; font-size: 100%;">Auto Zero&#8482;</h3>
+			<p style="position: absolute; left: 9%; width: 82%; height: 50%; top: 16%; font-size: 80%; color: #fff;" title="The Auto Zero function will automatically give students who have not submitted a task with a ZERO (0).">
+				Punish your students instantly.
+			</p>
+			<div style="position: absolute; height: 13%; width: 82%; left: 9%; top: 73%; color: #fff; font-size: 90%;">
+				<input type="checkbox" id="autozero">Enable</input>
+			</div>
+		</div>
+	</div>
+
+	<div id="publish_assignment_teacher" class="animation" onclick="schedule_assessment();">
+		<h3>Publish</h3>
+	</div>
+
+</div>
+
+<script>
+
+	var flag_selected = false;
+
+	document.getElementById("flag_button").onclick = function(){
+
+		if (!flag_selected){
+			flag_selected = true;
+			$(this).css({
+				"backgroundColor": "#689df2"
+			});
+			$("#flag").animate({
+				"left": "17%"
+			});
+		} else {
+			flag_selected = false;
+			$(this).css({
+				"backgroundColor": "#33291b"
+			});
+			$("#flag").animate({
+				"left": "-45%",
+			});
+		}
+
+	}
+
+	setInterval(function(){
+
+		var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+		var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+		var _date = new Date();
+
+		var day = days[_date.getDay()];
+		var month = months[_date.getMonth()];
+
+		var date_today = _date.getDate();
+
+		var innerHTMLString = "Today's date is "+ day +", "+ month +" "+ date_today +", "+ _date.getFullYear();
+		document.getElementById("date_today").innerHTML = innerHTMLString;
+
+	}, 1000);
+
+	var quotes = ["Sucking at something is the first step at becoming sorta good at something <br>- Jake",
+               "To laugh at yourself is to love yourself - Micky Mouse",
+               "It always seems impossible until its done <br>- Nelson Mandela",];
+
+	document.getElementById("quote").innerHTML = quotes[Math.floor((Math.random()*quotes.length) + 0)];
+
+	//Script for offline notification
+	setInterval(function(){
+		(navigator.onLine) ? $("#offline").animate({ "top": "-10%" }, 100) : $("#offline").animate({ "top": "0%" });
+	}, 1000);
+
+
+	var remember_password = document.getElementById("remember_password");
+	var lastState = true;
+	var txt = "Remember your password for 30 days?";
+	var colour = "#000";
+
+	var classes_json = [
+	];
+
+	//select_class("Test");
+
+	var class_select = [
+
+		{
+			"name": "calendar",
+			"ids": [
+				"calendar_table"
+			]
+		},
+		{
+			"name": "messages",
+			"ids": []
+		},
+		{
+			"name": "tasks",
+			"ids": []
+		},
+		{
+			"name": "files",
+			"ids": [
+				"file_search_bar", "submit_search", "searching_text", "file_results_container"
+			]
+		}
+
+	];
+
+	//current_button_selected("calendar");
+	//select_class("Fucking shit");
+
+	var firstClick_class = false;
+
+	function current_button_selected(button_name){
+
+		console.log("Selected: " + button_name);
+
+		if (button_name == "calendar"){
+			document.getElementById("calendar_table").style.top = "28.25%";
+			$("#calendar_table tr").css({"border": "0.1em solid #aa6464 !important"});
+		}
+
+		for (var i = 0; i < Object.keys(class_select).length; i++){
+			for (var b = 0; b < class_select[i].ids.length; b++){
+				(class_select[i].name == button_name) ? $("#" + class_select[i].ids[b]).fadeIn(0) : $("#" + class_select[i].ids[b]).fadeOut(0);
+			}
+		}
+
+	}
+
+	function select_class(class_name, tile_color, tinted_color){
+
+		$(".day, #next_2_weeks, #class_now, #class_later1, #class_later2, #asd").fadeOut(0);
+
+		$("#annoucements_text").css({ "top": "-12%", "font-size": "110%" });
+		$("#next_assessment, #buttons_class, #class_name, #submit_search, #file_search_bar, #file_results_container").fadeIn(0);
+
+		$("#announcements").css({ "height": "5%" });
+
+		$("#calendar_table").css({"top": "28.25%"});
+
+		document.getElementById("class_name_text").innerHTML = class_name;
+		document.getElementById("annoucements_text").innerHTML = "You have 2 upcoming assessments in this subject.";
+		document.getElementById("average_grade").style.top = "82%";
+		document.getElementById("average_grade").style.left = "79.13616398243045%";
+		document.getElementById("class_name").style.backgroundColor = tile_color;
+		document.getElementById("class_name").style.border = "0.1em solid " + tinted_color;
+
+		current_button_selected("calendar");
+
+		for (var i = 0; i < classes_json.length; i++){
+			if (classes_json[i].name !== class_name) continue;
+			document.getElementById("annoucements_text").innerHTML = "You have " + classes_json[i].no_assessments + " upcoming assessments in this subject";
+		}
+
+	}
+
+	var times = 0;
+	var string = "Searching";
+	var found = true;
+
+	setInterval(function(){
+
+		var state = document.getElementById("report_confirmation").checked;
+
+		if (state){
+			$("#submit_report_case").fadeIn(0);
+			$("#submit_report_case_cover").fadeOut(0);
+		} else {
+			$("#submit_report_case").fadeOut(0);
+			$("#submit_report_case_cover").fadeIn(0);
+		}
+
+	});
+
+ //================================================================//
+ setInterval(function(){
+ var calendar_height = (($("#calendar_table").height() + $("#calendar_table").position().top) / $(window).height()) * 100;
+ $("#progress_bar").css({ "top": calendar_height + 1.5 + "%" });
+
+ var annoucements_height = (($("#progress_bar").height() + $("#progress_bar").position().top) / $(window).height()) * 100;
+ $("#annoucements_holder").css({ "top": annoucements_height + 2.5 + "%" });
+ $("#chopping_block").css({ "top": annoucements_height + 2.5 + "%" });
+});
+ //================================================================//
+
+	setInterval(function(){
+
+	 if (!found){
+		var strings = ["Searching","Looping the database","Checking all objects"];
+		var colors = [
+			{"alpha": "BC8F8F", "beta": "8e6c6c"}
+		];
+
+		string = string + ".";
+		document.getElementById("searching_texttxt").innerHTML = string;
+
+		if (times >= 4){
+			times = 0;
+			string = strings[Math.floor((Math.random() * strings.length) + 0)];
+		}
+
+		times++;
+	  }
+
+	}, 1000);
+
+	function search(){
+		found = false;
+		$("#searching_text").fadeIn(0);
+	}
+
+	$("#global_chatUI, #class_chat_ui").draggable();
+
+	$("#classes, #classes_spotlightX").mouseenter(function(){
+		$("#classes_spotlightX").css({
+			"left": "17%"
+		}, 1000);
+	});
+
+	$("#classes, #classes_spotlightX").mouseleave(function(){
+		$("#classes_spotlightX").css({
+			"left": "-54.5%"
+		}, 1000);
+	});
+
+	$("#teacher_classes_button, #teacher_classes_container").mouseenter(function(){
+		$("#teacher_classes_container").css({
+			"left": "17%"
+		}, 1000);
+	});
+
+	$("#teacher_classes_button, #teacher_classes_container").mouseleave(function(){
+		$("#teacher_classes_container").css({
+			"left": "-69%"
+		}, 1000);
+	});
+
+	var socket = io();
+
+	socket.on("global_msg_server", function(firstname, lastname, grade, msg, dev){
+		$("#global_chat_log").append('<a style="color: #c9a23e; font-weight: bold;">'+grade+'</a><a style="font-weight: bold; color: #073560;">'+firstname+lastname+' </a>:&nbsp;'+msg+'<br>');
+	});
+
+	setInterval(function(){
+		document.getElementById("global_chat_scroll").scrollTop = document.getElementById("global_chat_scroll").scrollHeight;
+		document.getElementById("class_chat_scroll").scrollTop = document.getElementById("class_chat_scroll").scrollHeight;
+	});
+
+	var global_chat_clicked = false;
+	var class_chat_clicked = false;
+
+	document.getElementById("globalchat_close").onclick = function(){
+
+		global_chat_clicked = false;
+
+			$("#global_chatUI").animate({
+				left: "-60%",
+			}, 800);
+
+	}
+
+	document.getElementById("classchat_close").onclick = function(){
+
+		class_chat_clicked = false;
+
+		$("#class_chat_ui").animate({
+			left: "-60%",
+		}, 800);
+	}
+
+	document.getElementById("class_chat_button").onclick = function(){
+		if (!class_chat_clicked){
+			class_chat_clicked = true;
+
+			$("#class_chat_ui").animate({
+				left: "20%",
+				zIndex: "970"
+			}, 800);
+
+			document.getElementById("class_chat_ui").style.position = "fixed";
+
+		}
+	}
+
+	document.getElementById("global_chat").onclick = function(){
+
+		if (!global_chat_clicked){
+			global_chat_clicked = true;
+
+			$("#global_chatUI").animate({
+				left: "20%",
+				zIndex: "970"
+			}, 800);
+
+			document.getElementById("global_chatUI").style.position = "fixed";
+
+		}
+
+	}
+
+	var _top = 15;
+	var current_tile = 0;
+	var left = 33.3;
+
+	var times = 0;
+
+	socket.on("new_tile", function(tile_name, pic, tile_color, tinted_color, classid, assessmentsInClass, annoucements, periods, day){
+
+		left = 33.3 * current_tile;
+		$("#classes_spotlightX").append('<div id="'+escape(tile_name)+'" style="position: absolute; width: 33.3%; height: 35%; left:'+left+'%; top: '+_top+'%; cursor: pointer;" class="class_tile_import move_down animation"><div class="move_down_insides animation" style="background-image: url(pics/tile_pics/'+pic+');"><div style="position: absolute; height: 35%; width: 80%; left: 10%; top: 30%; text-align: center; color: #fff;"><h3>'+tile_name+'</h3></div></div><div class="move_down_outsides animation" style="background-color:'+tile_color+'"><h4 style="position: absolute; color: #fff; left: 5%;">No upcoming assessments.</h4><h4 style="position: absolute; color: #fff; left: 5%; top: 5%; font-size: 150%;">2 Periods.</h4></div></div>');
+		current_tile++;
+		left = current_tile * current_tile;
+
+		document.getElementById(escape(tile_name)).addEventListener("click", function(){
+			select_class(unescape(this.id), tile_color, tinted_color);
+		});
+
+		if (current_tile == 3){
+			current_tile = 0;
+			_top = _top + 35;
+			left = 33.3;
+		}
+
+		classes_json.push({"name": tile_name, "no_assessments": assessmentsInClass})
+
+	});
+
+	var global_messageBox = document.getElementById("global_chatmsg");
+	var class_messageBox = document.getElementById("class_chat_msg");
+
+	function send_global_msg(){
+		var msg = global_messageBox.value;
+		global_messageBox.value = "";
+
+		if (msg !== "") socket.emit("global_msg", msg, getCookie("login"), getCookie("_verify"));
+	}
+
+	function send_class_msg(){
+		var msg = class_messageBox.value;
+		class_messageBox.value = "";
+
+		if (msg !== "") socket.emit("class_chat", msg, getCookie("login"), getCookie("_verify"));
+	}
+
+	global_messageBox.onkeypress = function(e){
+		if (e.keyCode == 13) send_global_msg();
+	}
+
+	class_messageBox.onkeypress = function(e){
+		if (e.keyCode == 13) send_class_msg();
+	}
+
+	remember_password.onclick = function(){
+		(lastState) ? txt = "Ok, we will automatically log you in." : txt = "Remember your password for 30 days?";
+		(lastState) ? colour = "#00ff00" : colour = "#000";
+		(lastState) ? lastState = false : lastState = true;
+	}
+
+	if (getCookie("login") !== ""){
+		socket.emit("login", getCookie("_login"), getCookie("_verify"));
+	}
+
+	if (document.cookie.indexOf("_times") > 0){
+		socket.emit("_times", getCookie("_times"));
+	} else {
+		//createCookie("_times" 1);
+	}
+
+	$('#box').css({ position: 'absolute', top: '3%', left: '18.5%'});
+	$('#best').css({ position: 'absolute', top: '62.5%', left: '79.3921423276501%'});
+	$('#best2').css({ position: 'absolute', top: '72.5%', left: '79.3921423276501%'});
+	$('#best3').css({ position: 'absolute', top: '82.5%', left: '79.3921423276501%'});
+
+	function move_login(){
+		$("#login_screen").animate({
+			top: "-100%"
+		}, 1500);
+		$("#dashboard").animate({
+			top: "0%"
+		}, 1000);
+
+		setTimeout(function(){
+			document.getElementById("button_dialog").style.position = "fixed";
+			document.getElementById("dashboard").style.overflowY = "scroll";
+		}, 1500);
+
+		document.getElementById("input_box").style.position = "absolute";
+		document.getElementById("dashboard").style.position = "absolute";
+	}
+
+	function move_teacher_dashboard(name){
+
+		document.getElementById("login_screen").style.position = "fixed";
+		document.getElementById("teacher_welcome_txt").innerHTML = "Welcome back to Overflow, " + name + "!";
+
+		$("#login_screen").animate({
+			top: "100%"
+		}, 1500);
+		$("#teacher_dashboard").animate({
+			top: "0%"
+		}, 1000);
+
+		setTimeout(function(){
+			document.getElementById("button_dialog_teacher").style.position = "fixed";
+		}, 1500);
+
+	}
+
+	function logout(){
+		createCookie("_login", 0, 0);
+		createCookie("_verify", 0, 0);
+		window.location.reload();
+	}
+
+	document.getElementById("password_recovery").onclick = function(){
+		$("#input_box, #front_logo1, #front_logo2, #front_input, #today_in_history").animate({ top: "110%" });
+		$("#recovery_box").animate({ top: "25%" });
+	}
+
+	document.getElementById("back_button").onclick = function(){
+		$("#input_box, #front_logo1, #front_logo2").animate({ top: "25%" });
+		$("#today_in_history").animate({ "top": "55%" });
+		$("#front_input").animate({ "top": "38%" });
+		$("#recovery_box").animate({ "top": "-85%" });
+	}
+
+	setInterval(function(){
+		remember_password.innerHTML = txt;
+		remember_password.style.color = colour;
+	});
+
+	function submit(){
+
+		var studentid = document.getElementById("studentid").value;
+		var password = document.getElementById("password").value;
+
+			socket.emit("creds", studentid, password, lastState);
+
+	}
+
+	socket.on("exec", function(data){
+		eval(data);
+	});
+
+	socket.on("class_chat", function(msg, name){
+		$("#class_chat_log").append("<a style='color: #073560; font-weight: bold;'>"+name+"</a>: "+ msg + "<br>");
+	});
+
+	var teacher_top = 18;
+	var teacher_left = 5;
+	var teacher_current_tile = 1;
+
+	socket.on("teacher_class", function(class_name, class_image){
+		$("#teacher_classes_container").append('<div class="teacher_class_tile" style="background-image: url(pics/tile_pics/'+class_image+'); left: '+teacher_left+'%; width: 40%; height: 35%; background-color: #000; top: '+teacher_top+'%;"><h4>'+class_name+'</h4></div>');
+
+		teacher_current_tile++;
+		teacher_left += 45;
+
+		if (teacher_current_tile == 3){
+			teacher_left = 5;
+			teacher_top += 42;
+			teacher_current_tile = 1;
+		}
+
+	});
+
+	socket.on("student_calendar_append", function(day, contents, color, class_name){
+		var row = 0;
+		if (day > 6){ row++; day = day-7 }
+
+		console.log("\nReceived:", class_name);
+		console.log("row", row);
+		console.log("day", day);
+		document.getElementById("calendar_table").rows[row].cells[day].innerHTML += '<div class="tile_child" style="color: #fff; background-color: '+color+'"><b>'+day+' '+class_name+'</b><br>'+contents+'</div>';
+	});
+
+	load_teacher_class("Test");
+
+	function load_teacher_class(class_name){
+
+		$("#teacher_annoucements, #calendar_teacher, #teacher_notifs").fadeOut(0);
+		$("#class_name_teacher, #schedule_assessment_text_teacher, #schedule_assessment, #assessment_settings_details, #assessment_analytics, #class_statistics, #schedule_assessment_container, #assessment_details_menu, #assessment_details_menu_cover").fadeIn(0);
+
+		document.getElementById("class_name_text_teacher").innerHTML = class_name;
+
+	}
+
+	var taskDate;
+
+	function schedule_assessment_date(date){
+
+		//Convert parameter string to array.
+		//Position 0: date
+		//Position 1: month
+		//Position 2: year
+		//Position 3: day of the week
+
+		var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+		var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+		var day = days[date[3]];
+		var month = months[date[1]];
+		var string_color;
+
+		var date_today = new Date().getDate();
+
+		(date[0] == date_today) ? string_color = "#bf5d5d" : string_color = "#868dcc";
+
+		var innerHTMLString = "Date: <a style='color: "+string_color+";'>"+ day +", "+ month +" "+ date[0] +", "+ date[2] +"</a>";
+		document.getElementById("date_display").innerHTML = innerHTMLString;
+		taskDate = date;
+
+	}
+
+	var current_class_selected = "1337_overflow_developers";
+
+	function schedule_assessment(){
+
+		var taskName = document.getElementById("schedule_taskName").value;
+		var assessment_type = document.getElementById("assessment_type").value;
+		var assessment_medium = document.getElementById("assessment_medium").value;
+		var assessment_description = document.getElementById("assessment_description").value;
+		var autozero = document.getElementById("autozero").value;
+
+		socket.emit("new_assignment", getCookie("_verify"), getCookie("_login"), taskName,
+									  taskDate, assessment_type, assessment_medium, assessment_description, autozero, current_class_selected);
+
+	}
+
+	window.onload = function(){
+
+		for (var i = 1; i < 12; i++){
+			var mins = (i == 1) ? "0" + i * 5 : i * 5;
+			$("#schedule_assessment_minutes").append("<option value='"+mins+"'>"+mins+"</option>");
+		}
+
+		var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+		var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+		var _date = new Date();
+
+		var day = days[_date.getDay()];
+		var month = months[_date.getMonth()];
+
+		var date_today = _date.getDate();
+
+		var innerHTMLString = "Today's date is "+ day +", "+ month +" "+ date_today +", "+ _date.getFullYear();
+		document.getElementById("date_today").innerHTML = innerHTMLString;
+
+		var tile_height = 0;
+		var total_count = 0;
+		var days_so_far = _date.getDay();
+		var current_month_boundry = daysInMonth(_date.getMonth()+1, _date.getFullYear());
+		var current_date = _date.getDate();
+		var current_month = _date.getMonth();
+		var current_year = _date.getFullYear();
+
+		while (tile_height !== 2){
+
+			for (var i = 0; i < 4; i++){
+
+				if (days_so_far == 7) days_so_far = 0;
+				if (current_date > current_month_boundry){
+					current_date = 1;
+					current_month++;
+				}
+				if (current_month > 11){
+					current_month = 0;
+					current_year++;
+				}
+
+				var tile_day = days[days_so_far];
+
+				var special_style = "";
+				if (i == 3) special_style = "border-right: 0px;";
+
+																																																			//Position 0: date
+																																																			//Position 1: month
+																																																			//Position 2: year
+																																																			//Position 3: day of the week
+
+				var button_top_pos = 20 + (tile_height * 40);
+				$("#schedule_assessment_container").append('<div class="teacher_schedule_button animation" style="'+special_style+'left: '+i*25+'%; top: '+button_top_pos+'%" onclick="schedule_assessment_date(['+current_date+','+current_month+','+current_year+','+days_so_far+']);"><div style="position: absolute; width: 80%; left: 10%; top: 10%; height: 80%;"><p style="position: absolute; font-size: 85%; color: #fff; top: -10%;">'+tile_day+',<br> '+months[current_month]+' '+current_date+', 2018<br><a style="font-size: 160%">'+total_count+'</a></p></div></div>');
+
+				total_count++;
+				days_so_far++;
+				current_date++;
+
+			}
+
+			tile_height++;
+
+		}
+
+	}
+
+	//socket.on("assessment", function(name){
+	//});
+
+	socket.on("colors_sequence", function(colors, percentages, sequence){
+
+			for (var i = 0; i < colors.length; i++){
+				document.getElementById("progress_" + i).style.backgroundColor = colors[i];
+				$("#progress_" + i).css({ "width": percentages[i] + "%" });
+				document.getElementById("progress_" + i).innerHTML = sequence[i].substr(0, 3) + ".";
+			}
+	});
+
+	socket.on("upcoming_chopping_block", function(name, description, color, border_color){
+
+		document.getElementById("chopping_block_title").innerHTML = name;
+		document.getElementById("chopping_block_description").innerHTML = unescape(description);
+		document.getElementById("chopping_block_title_holder").style.backgroundColor = color;
+		document.getElementById("chopping_block").style.border = "0.1em solid " + border_color;
+
+	});
+
+	$("#calendar_tile1").append('<div class="calendar_button animation"><p>Historians Writing on Indonesian History</p></div>');
+
+	var toggle_moved_teacher = 0;
+
+	socket.on("days", function(data){
+
+		console.log(data);
+
+		for (var i = 0; i < data.length; i++){
+			var count = i + 1;
+			console.log("day"+count);
+			document.getElementById("day"+count).innerHTML = "<h3>"+data[i]+"</h3>";
+		}
+
+	});
+
+		socket.on("assignment", function(json){
+			json = JSON.parse(json);
+
+			document.getElementById("assignment_ui_description").innerHTML = json.description;
+
+		})
+
+//Cookie functions
+
+				var createCookie = function(name, value, days) {
+				    var expires;
+				    if (days) {
+				        var date = new Date();
+				        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+				        expires = "; expires=" + date.toGMTString();
+				    }
+				    else {
+				        expires = "";
+				    }
+				    document.cookie = name + "=" + value + expires + "; path=/";
+				}
+
+				function getCookie(c_name){
+				    if (document.cookie.length > 0) {
+				        c_start = document.cookie.indexOf(c_name + "=");
+				        if (c_start != -1) {
+				            c_start = c_start + c_name.length + 1;
+				            c_end = document.cookie.indexOf(";", c_start);
+				            if (c_end == -1) {
+				                c_end = document.cookie.length;
+				            }
+				            return unescape(document.cookie.substring(c_start, c_end));
+				        }
+				    }
+				    return "";
+				}
+
+			// Month here is 1-indexed (January is 1, February is 2, etc). This is
+			// because we're using 0 as the day so that it returns the last day
+			// of the last month, so you have to add 1 to the month number
+			// so it returns the correct amount of days
+			function daysInMonth (month, year) {
+				return new Date(year, month, 0).getDate();
+			}
+			//credit: https://stackoverflow.com/questions/1184334/get-number-days-in-a-specified-month-using-javascript#1184359
+
+		function checkOverflow(el){
+		   var curOverflow = el.style.overflow;
+
+		   if ( !curOverflow || curOverflow === "visible" )
+			  el.style.overflow = "hidden";
+
+		   var isOverflowing = el.clientWidth < el.scrollWidth
+			  || el.clientHeight < el.scrollHeight;
+
+		   el.style.overflow = curOverflow;
+
+		   return isOverflowing;
+		}
+		//credit: https://stackoverflow.com/a/143889/5488863
+
+	console.log("%cHalt!","font-size: 300%; background-color: red; font-weight: bold; color: #fff; font-style: italic;");
+	console.log("%cThis is menu intended for developers only","font-size: 400%; font-weight: bold; text-decoration: underline;");
+	console.log("%cIf you were asked to input any code here, DO NOT DO IT. It is a scam and they are trying to hack your account or exploit you for their own benefit.","font-size: 300%; font-weight: bold;");
+</script>
+
+</html>
